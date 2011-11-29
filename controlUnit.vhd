@@ -43,5 +43,5 @@ begin
 			state <= next_state;
 			repetitions <= repetitions + 1;
 		end if;
-	end process comb_process; 
+	end process; 
 end behavioral;

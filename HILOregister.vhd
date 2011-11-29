@@ -28,22 +28,17 @@ begin
 
 C1: clock port map(value => clockval);
 
-	process hiloDetermine (clockval)
+	hilodetermine: process(clockval) is
 	begin
-		if(clockval='1')
-			if(reset='1')
+		if(clockval='1') then
+			if(reset='1') then
 				HILO <= "0000000000000000";
-			end if;
-			elsif(load='1')
+			elsif(load='1') then
 				HILO(15 downto 8) <= HI;
 				HILO(7 downto 0) <= LO;
-			end if;
-			elsif(shiftright='1')
+			elsif(shiftright='1') then
 				HILO(14 downto 0) <= HILO(15 downto 1);
 				HILO(15) <= '1';
-			end if;
-			elsif(add='1')
-				adder port map (a => mcand, b => HILO(15 downto 8), adder_result => HILO(15 downto 8));
 			end if;
 		end if;
 	
