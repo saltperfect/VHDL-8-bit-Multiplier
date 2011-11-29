@@ -40,3 +40,4 @@ function to_integer(X: STD_LOGIC_VECTOR) return INTEGER is
   end process alu_process;
 end behavioral;
 
+

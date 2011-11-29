@@ -2,13 +2,13 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
 
-entity state_machine is
+entity control is
 	port( writeflag, shiftflag, addflag: out STD_LOGIC;
 		clk, LO, reset: in STD_LOGIC
 	);
 end entity;
 
-architecture behavioral of state_machine is
+architecture behavioral of control is
 
 type statetype is (Load, Shift);
 signal state: statetype;

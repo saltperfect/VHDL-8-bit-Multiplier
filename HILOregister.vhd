@@ -4,7 +4,7 @@ use IEEE.std_logic_1164.all;
 entity hiloregister is
 	port(mcand, HI, LO: inout STD_LOGIC_VECTOR(7 downto 0);
 		testbit: out STD_LOGIC;
-		shiftright, reset, add, load: in STD_LOGIC
+		shiftright, reset, load: in STD_LOGIC
 	);
 end entity;
 

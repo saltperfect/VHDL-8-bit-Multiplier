@@ -15,3 +15,4 @@ begin
 				clock_value <= not clock_value after 10 ns;
 			end Process clock_process;
 end structural;
+
