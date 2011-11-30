@@ -4,8 +4,7 @@ use IEEE.std_logic_arith.all;
 
 entity control is
 	port( writeflag, shiftflag, addflag, loadflag: out STD_LOGIC;
-		clk, LO, reset: in STD_LOGIC;
-		repetitiontest: out INTEGER
+		clk, LO, reset: in STD_LOGIC
 	);
 end entity;
 
@@ -57,12 +56,11 @@ begin
 				null;
 			end case;
 			repetitions <= repetitions + 1;
-			if(repetitions = 20) then
+			if(repetitions = 10) then
 				next_state := EndS;
 			end if;
 			state <= next_state;
 		end if;
-		repetitiontest <= repetitions;
 	end process; 
 end behavioral;
 

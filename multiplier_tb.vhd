@@ -13,22 +13,20 @@ architecture behavioral of multiplication_tester is
 component multiplier is
 port ( mcand, mplier: in STD_LOGIC_VECTOR (7 downto 0);
 	reset: in STD_LOGIC;
-	LSBtest,addtest,clocktest: out STD_LOGIC;
-	repetitiontester: out INTEGER;
 	product: out STD_LOGIC_VECTOR (15 downto 0)
 	);
 end component;
 
 Signal myproduct: std_logic_vector(15 downto 0);
-Signal mymcandtest, mympliertest, mytrueprodcut: std_logic_vector(7 downto 0);
-Signal myLSBtest, myaddtest, myclocktest: std_logic;
-signal reptest : INTEGER;
+Signal mymcandtest, mympliertest, mytrueproduct: std_logic_vector(7 downto 0);
+Signal resetsig: std_logic;
 begin
 
-C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => myproduct, reset => '0', LSBtest => myLSBtest, addtest => myaddtest, clocktest => myclocktest, repetitiontester => reptest);
-mymcandtest <= "00000101";
-mympliertest <= "00001010";
-mytrueprodcut <= myproduct(7 downto 0);
+C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => myproduct, reset => resetsig);
+mymcandtest <= "00000000" after 0 ns, "00000001" after 1205 ns, "00000011" after 2405 ns, "00000001" after 3605 ns, "00000101" after 4805 ns;
+mympliertest <= "00000001" after 0 ns, "00000010" after 1205 ns, "00000011" after 2405 ns, "00000000" after 3605 ns, "00000010" after 4805 ns;
+mytrueproduct <= myproduct(7 downto 0);
+resetsig <= '0' after 0 ns, '1' after 1200 ns, '0' after 1205 ns, '1' after 2400 ns, '0' after 2405 ns, '1' after 3600 ns, '0' after 3605 ns, '1' after 4800 ns, '0' after 4805 ns;
 
 end behavioral;
 

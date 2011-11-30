@@ -5,8 +5,6 @@ use IEEE.std_logic_arith.all;
 entity multiplier is
 	port ( mcand, mplier: in STD_LOGIC_VECTOR (7 downto 0);
 	reset: in STD_LOGIC;
-	LSBtest,addtest, clocktest: out STD_LOGIC;
-	repetitiontester: out INTEGER;
 	product: out STD_LOGIC_VECTOR (15 downto 0)
 	);
 end entity;
@@ -23,8 +21,7 @@ end component;
 
 component control is
 port( writeflag, shiftflag, addflag, loadflag: out STD_LOGIC;
-		clk, LO, reset: in STD_LOGIC;
-		repetitiontest: out INTEGER
+		clk, LO, reset: in STD_LOGIC
 	);
 end component;
 
@@ -50,12 +47,9 @@ begin
 	LSB <= productval(0);
 	CLOCK1: clock port map(value => clocksig);
 	ADD1: adder port map(a => productHI, b => mcand, adder_result => addHIsignal);
-	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, loadflag => loadsignal, LO => LSB, reset => resetsignal, clk => clocksig, repetitiontest => repetitiontester);
+	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, loadflag => loadsignal, LO => LSB, reset => resetsignal, clk => clocksig);
 	M2: hiloregister port map(mcand => mcand, HI => mcand, LO => mplier, addedHI => addHIsignal, testbit => LSB, shiftright => shiftflagsignal, add => addflagsignal, clockval => clocksig, reset => resetsignal, load => loadsignal, result => productval);
 	product <= productval(15 downto 0);
-	LSBtest <= LSB;
-	addtest <= addflagsignal;
-	clocktest <= clocksig;
 
 end architecture;
 
