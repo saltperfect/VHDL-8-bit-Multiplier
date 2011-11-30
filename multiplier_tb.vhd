@@ -13,18 +13,21 @@ architecture behavioral of multiplication_tester is
 component multiplier is
 port ( mcand, mplier: in STD_LOGIC_VECTOR (7 downto 0);
 	reset: in STD_LOGIC;
+	LSBtest: out STD_LOGIC;
 	product: out STD_LOGIC_VECTOR (15 downto 0)
 	);
 end component;
 
 Signal mymcandtest, mympliertest: std_logic_vector(7 downto 0);
+Signal myLSBtest: std_logic;
 begin
 
-C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => producttest, reset => '0');
-mymcandtest <= "00000011" after 0 ns;
-mympliertest <= "00000000" after 0 ns;
+C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => producttest, reset => '0', LSBtest => myLSBtest);
+mymcandtest <= "00100000" after 5 ns;
+mympliertest <= "00000010" after 5 ns;
 
 end behavioral;
+
 
 
 

@@ -5,6 +5,7 @@ use IEEE.std_logic_arith.all;
 entity multiplier is
 	port ( mcand, mplier: in STD_LOGIC_VECTOR (7 downto 0);
 	reset: in STD_LOGIC;
+	LSBtest: out STD_LOGIC;
 	product: out STD_LOGIC_VECTOR (15 downto 0)
 	);
 end entity;
@@ -50,7 +51,9 @@ begin
 	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, clk => clocksig, loadflag => loadsignal, LO => LSB, reset => resetsignal);
 	M2: hiloregister port map(mcand => mcand, HI => mcand, LO => mplier, addedHI => addHIsignal, testbit => LSB, shiftright => shiftflagsignal, add => addflagsignal, clockval => clocksig, reset => resetsignal, load => loadsignal, result => productval);
 	product <= productval(15 downto 0);
+	LSBtest <= LSB;
 
 end architecture;
+
 
 
