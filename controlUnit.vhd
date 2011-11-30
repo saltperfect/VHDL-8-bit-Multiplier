@@ -29,30 +29,42 @@ begin
 			case state is
 			when Load =>
 				loadflag <= '1';
+				shiftflag <= '0';
+				addflag <= '0';
 				next_state := Continue;
 			when Continue =>
 				loadflag <= '0';
+				shiftflag <= '0';
+				addflag <= '0';
 			if leastBit='0' then
 				next_state := Shift;
-				shiftflag <= '1';
+				loadflag <= '0';
+				shiftflag <= '0';
+				addflag <= '0';
 			else
 				next_state := Shift;
-				addflag <= '1';
-				shiftflag <= '1';				
+				loadflag <= '0';
+				shiftflag <= '0';
+				addflag <= '1';				
 			end if;
 			when Shift =>
 				next_state := Continue;
-				shiftflag <= '0';
+				loadflag <= '0';
+				shiftflag <= '1';
 				addflag <= '0';
 			when Ends =>
+				loadflag <= '0';
+				shiftflag <= '0';
+				addflag <= '0';
 				null;
 			end case;
 			repetitions <= repetitions + 1;
-			if(repetitions = 7) then
+			if(repetitions = 20) then
 				next_state := EndS;
 			end if;
 			state <= next_state;
 		end if;
 	end process; 
 end behavioral;
+
 
