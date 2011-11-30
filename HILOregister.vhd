@@ -19,12 +19,11 @@ component adder is
 end component;
 
 signal HILO: STD_LOGIC_VECTOR(15 downto 0);
-signal HIadded: STD_LOGIC_VECTOR(7 downto 0);
 
 begin
 
-A1: adder port map(a => HI, b => mcand, adder_result => HIadded);
-
+A0:testbit <= HILO(0);
+A1:
 	process(clockval) is
 	begin
 		if(clockval='1') then

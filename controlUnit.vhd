@@ -13,7 +13,7 @@ architecture behavioral of control is
 type statetype is (Load, Shift, Continue, EndS);
 signal state: statetype;
 signal repetitions: INTEGER:= 0;
-signal leastBit: STD_LOGIC;
+signal leastBit: STD_LOGIC:= LO;
 
 begin
 
@@ -26,6 +26,9 @@ begin
 		if reset = '1' then
 			state <= statetype'left;
 		else
+			loadflag <= '0';
+			shiftflag <= '0';
+			addflag <= '0';
 			case state is
 			when Load =>
 				loadflag <= '1';
@@ -33,9 +36,6 @@ begin
 				addflag <= '0';
 				next_state := Continue;
 			when Continue =>
-				loadflag <= '0';
-				shiftflag <= '0';
-				addflag <= '0';
 			if leastBit='0' then
 				next_state := Shift;
 				loadflag <= '0';

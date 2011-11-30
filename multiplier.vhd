@@ -37,13 +37,14 @@ component adder is
 end component;
 
 signal productval: STD_LOGIC_VECTOR (15 downto 0);
-signal productHI: STD_LOGIC_VECTOR (7 downto 0);
+signal productHI: STD_LOGIC_VECTOR (7 downto 0) := mcand;
 signal addHIsignal: STD_LOGIC_VECTOR (7 downto 0):= mcand;
 signal writeflagsignal, shiftflagsignal, addflagsignal, clocksig, LSB, resetsignal, loadsignal: STD_LOGIC;
 begin
 
 	resetsignal <= reset;
 	productHI <= productval(15 downto 8);
+	LSB <= productval(0);
 	CLOCK1: clock port map(value => clocksig);
 	ADD1: adder port map(a => productHI, b => mcand, adder_result => addHIsignal);
 	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, clk => clocksig, loadflag => loadsignal, LO => LSB, reset => resetsignal);

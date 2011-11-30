@@ -21,8 +21,8 @@ Signal mymcandtest, mympliertest: std_logic_vector(7 downto 0);
 begin
 
 C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => producttest, reset => '0');
-mymcandtest <= "00000010" after 0 ns;
-mympliertest <= "00000011" after 0 ns;
+mymcandtest <= "00000011" after 0 ns;
+mympliertest <= "00000000" after 0 ns;
 
 end behavioral;
 
