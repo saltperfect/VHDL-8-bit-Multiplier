@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity hiloregister is
-	port(mcand, HI, LO: inout STD_LOGIC_VECTOR(7 downto 0);
+	port(mcand, HI, LO: in STD_LOGIC_VECTOR(7 downto 0);
 		testbit: out STD_LOGIC;
 		shiftright, reset, load: in STD_LOGIC
 	);
@@ -48,3 +48,4 @@ C1: clock port map(value => clockval);
 	
 	end process;
 end architecture;
+

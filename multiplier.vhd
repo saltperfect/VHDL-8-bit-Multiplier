@@ -19,7 +19,7 @@ port (
 end component;
 
 component hiloregister is
-port(mcand, HI, LO: inout STD_LOGIC_VECTOR(7 downto 0);
+port(mcand, HI, LO: in STD_LOGIC_VECTOR(7 downto 0);
 		testbit: out STD_LOGIC;
 		shiftright, reset, load: in STD_LOGIC
 	);
@@ -35,13 +35,13 @@ component clock is
 	port(value : out std_logic);
 end component;
 
-signal product: STD_LOGIC_VECTOR (7 downto 0);
+signal productval: STD_LOGIC_VECTOR (7 downto 0);
 signal writeflagsignal, shiftflagsignal, addflagsignal, clocksig, LSB, resetsignal, loadsignal: STD_LOGIC;
 begin
 
 	resetsignal <= reset;
-	CLOCK: clock port map(value <= clocksig);
-	M1: control port map (writeflag <= writeflagsignal, shiftflag <= shiftflagsignal, addflag <= addflagsignal, clk <= clocksig, LO <= LSB, reset <= resetsignal);
-	M2: hiloregister port map(mcand <= mcand, HI <= mcand, LO <= mplier, testbit <= LSB, shiftright <= shiftrightsignal, reset <= resetsignal, load <= loadsignal);
+	CLOCK1: clock port map(value => clocksig);
+	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, clk => clocksig, LO => LSB, reset => resetsignal);
+	M2: hiloregister port map(mcand => mcand, HI => mcand, LO => mplier, testbit => LSB, shiftright => shiftflagsignal, reset => resetsignal, load => loadsignal);
 
-process 
+end architecture;
