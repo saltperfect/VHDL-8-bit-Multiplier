@@ -23,12 +23,13 @@ Signal resetsig: std_logic;
 begin
 
 C1: multiplier port map (mcand => mymcandtest, mplier => mympliertest, product => myproduct, reset => resetsig);
-mymcandtest <= "00000101";
-mympliertest <= "00001010";
+mymcandtest <= "00000001" after 0 ns, "00000111" after 190 ns, "00000101" after 390 ns, "00000111" after 590 ns, "00000101" after 790 ns;
+mympliertest <= "00000010" after 0 ns, "00000001" after 190 ns, "00000100" after 390 ns, "00000001" after 590 ns, "00000111" after 790 ns;
 mytrueproduct <= myproduct(7 downto 0);
-resetsig <='0' after 0 ns, '1' after 190 ns, '0' after 200 ns;
+resetsig <='0' after 0 ns, '1' after 190 ns, '0' after 200 ns, '1' after 390 ns, '0' after 400 ns, '1' after 590 ns, '0' after 600 ns, '1' after 790 ns, '0' after 800 ns;
 
 end behavioral;
+
 
 
 
