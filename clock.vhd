@@ -12,7 +12,8 @@ begin
 	Set: value <= clock_value;
 	clock_process: Process(clock_value) is
 		       begin
-				clock_value <= not clock_value after 10 ns;
+				clock_value <= not clock_value after 5 ns;
 			end Process clock_process;
 end structural;
+
 

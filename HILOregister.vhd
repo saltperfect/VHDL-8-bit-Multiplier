@@ -4,15 +4,12 @@ use IEEE.std_logic_1164.all;
 entity hiloregister is
 	port(mcand, HI, LO: in STD_LOGIC_VECTOR(7 downto 0);
 		testbit: out STD_LOGIC;
-		shiftright, reset, load: in STD_LOGIC
+		shiftright, reset, load, add, clockval: in STD_LOGIC;
+		result: out STD_LOGIC_VECTOR(15 downto 0)
 	);
 end entity;
 
 architecture hilo of hiloregister is
-
-component clock is
-	port(value : out std_logic);
-end component;
 
 component adder is
 	port (
@@ -22,13 +19,13 @@ component adder is
 end component;
 
 signal HILO: STD_LOGIC_VECTOR(15 downto 0);
-signal clockval: STD_LOGIC;
+signal HIadded: STD_LOGIC_VECTOR(7 downto 0);
 
 begin
 
-C1: clock port map(value => clockval);
+A1: adder port map(a => HI, b => mcand, adder_result => HIadded);
 
-	hilodetermine: process(clockval) is
+	process(clockval) is
 	begin
 		if(clockval='1') then
 			if(reset='1') then
@@ -37,15 +34,19 @@ C1: clock port map(value => clockval);
 				HILO(15 downto 8) <= HI;
 				HILO(7 downto 0) <= LO;
 			elsif(shiftright='1') then
+				if(add='1') then
+					HILO(15 downto 8) <= HIadded;
+				end if;
 				HILO(14 downto 0) <= HILO(15 downto 1);
 				HILO(15) <= '1';
 			end if;
 		end if;
 	
-	HI <= HILO(15 downto 8);
-	LO <= HILO(7 downto 0);
+	result(15 downto 8) <= HILO(15 downto 8);
+	result(7 downto 0) <= HILO(7 downto 0);
 	testbit <= HILO(0);
 	
 	end process;
 end architecture;
+
 
