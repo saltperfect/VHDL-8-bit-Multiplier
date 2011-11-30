@@ -5,7 +5,8 @@ use IEEE.std_logic_arith.all;
 entity multiplier is
 	port ( mcand, mplier: in STD_LOGIC_VECTOR (7 downto 0);
 	reset: in STD_LOGIC;
-	LSBtest: out STD_LOGIC;
+	LSBtest,addtest, clocktest: out STD_LOGIC;
+	repetitiontester: out INTEGER;
 	product: out STD_LOGIC_VECTOR (15 downto 0)
 	);
 end entity;
@@ -22,7 +23,8 @@ end component;
 
 component control is
 port( writeflag, shiftflag, addflag, loadflag: out STD_LOGIC;
-		clk, LO, reset: in STD_LOGIC
+		clk, LO, reset: in STD_LOGIC;
+		repetitiontest: out INTEGER
 	);
 end component;
 
@@ -40,20 +42,24 @@ end component;
 signal productval: STD_LOGIC_VECTOR (15 downto 0);
 signal productHI: STD_LOGIC_VECTOR (7 downto 0) := mcand;
 signal addHIsignal: STD_LOGIC_VECTOR (7 downto 0):= mcand;
-signal writeflagsignal, shiftflagsignal, addflagsignal, clocksig, LSB, resetsignal, loadsignal: STD_LOGIC;
+signal writeflagsignal, shiftflagsignal, addflagsignal, clocksig, startsig, LSB, resetsignal, loadsignal: STD_LOGIC;
 begin
-
+	startsig <= '1' after 40 ns;
 	resetsignal <= reset;
 	productHI <= productval(15 downto 8);
 	LSB <= productval(0);
 	CLOCK1: clock port map(value => clocksig);
 	ADD1: adder port map(a => productHI, b => mcand, adder_result => addHIsignal);
-	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, clk => clocksig, loadflag => loadsignal, LO => LSB, reset => resetsignal);
+	M1: control port map (writeflag => writeflagsignal, shiftflag => shiftflagsignal, addflag => addflagsignal, loadflag => loadsignal, LO => LSB, reset => resetsignal, clk => clocksig, repetitiontest => repetitiontester);
 	M2: hiloregister port map(mcand => mcand, HI => mcand, LO => mplier, addedHI => addHIsignal, testbit => LSB, shiftright => shiftflagsignal, add => addflagsignal, clockval => clocksig, reset => resetsignal, load => loadsignal, result => productval);
 	product <= productval(15 downto 0);
 	LSBtest <= LSB;
+	addtest <= addflagsignal;
+	clocktest <= clocksig;
 
 end architecture;
+
+
 
 
 

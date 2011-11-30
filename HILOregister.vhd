@@ -22,7 +22,6 @@ signal HILO: STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
-A0:testbit <= HILO(0);
 A1:
 	process(clockval) is
 	begin
@@ -34,10 +33,10 @@ A1:
 				HILO(15 downto 8) <= HI;
 				HILO(7 downto 0) <= LO;
 			end if;
-			if(add='1' and shiftright='0') then
+			if(add='1') then
 				HILO(15 downto 8) <= addedHI;
 			end if;
-			if(shiftright='1' and add='0') then
+			if(shiftright='1') then
 				HILO(14 downto 0) <= HILO(15 downto 1);
 				HILO(15) <= '1';
 			end if;

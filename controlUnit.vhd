@@ -4,7 +4,8 @@ use IEEE.std_logic_arith.all;
 
 entity control is
 	port( writeflag, shiftflag, addflag, loadflag: out STD_LOGIC;
-		clk, LO, reset: in STD_LOGIC
+		clk, LO, reset: in STD_LOGIC;
+		repetitiontest: out INTEGER
 	);
 end entity;
 
@@ -26,9 +27,6 @@ begin
 		if reset = '1' then
 			state <= statetype'left;
 		else
-			loadflag <= '0';
-			shiftflag <= '0';
-			addflag <= '0';
 			case state is
 			when Load =>
 				loadflag <= '1';
@@ -36,7 +34,7 @@ begin
 				addflag <= '0';
 				next_state := Continue;
 			when Continue =>
-			if leastBit='0' then
+			if leastBit='0' or leastBit='U' then
 				next_state := Shift;
 				loadflag <= '0';
 				shiftflag <= '0';
@@ -64,8 +62,11 @@ begin
 			end if;
 			state <= next_state;
 		end if;
+		repetitiontest <= repetitions;
 	end process; 
 end behavioral;
+
+
 
 
 

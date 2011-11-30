@@ -36,9 +36,10 @@ function to_integer(X: STD_LOGIC_VECTOR) return INTEGER is
      op1 := to_integer(a(7 downto 0));
      op2 := to_integer(b(7 downto 0));	  
      res := op1 + op2;
-     adder_result <= conv_std_logic_vector(res, 8) after 5 ns;
+     adder_result <= conv_std_logic_vector(res, 8);
   end process alu_process;
 end behavioral;
+
 
 
 
