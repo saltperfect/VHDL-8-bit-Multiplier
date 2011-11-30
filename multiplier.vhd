@@ -26,7 +26,7 @@ port( writeflag, shiftflag, addflag, loadflag: out STD_LOGIC;
 end component;
 
 component clock is
-	port(value : out std_logic);
+	 port(value : out std_logic);
 end component;
 
 component adder is
@@ -52,6 +52,8 @@ begin
 	product <= productval(15 downto 0);
 
 end architecture;
+
+
 
 
 

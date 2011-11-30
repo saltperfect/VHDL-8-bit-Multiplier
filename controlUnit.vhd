@@ -17,12 +17,13 @@ signal leastBit: STD_LOGIC:= LO;
 
 begin
 
+
 	process
 	variable next_state : statetype := Load;
 	
 	begin
-		leastBit <= LO;
 		wait until (clk'event and clk='1');
+		leastBit <= LO;
 		if reset = '1' then
 			state <= statetype'left;
 		else
@@ -63,9 +64,3 @@ begin
 		end if;
 	end process; 
 end behavioral;
-
-
-
-
-
-
