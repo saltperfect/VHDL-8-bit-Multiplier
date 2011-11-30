@@ -56,13 +56,14 @@ begin
 				null;
 			end case;
 			repetitions <= repetitions + 1;
-			if(repetitions = 10) then
+			if(repetitions = 17) then
 				next_state := EndS;
 			end if;
 			state <= next_state;
 		end if;
 	end process; 
 end behavioral;
+
 
 
 
